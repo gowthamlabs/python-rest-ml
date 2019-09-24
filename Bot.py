@@ -15,11 +15,10 @@ def test():
   return str(productsCount);
   
  except Exception as inst:
-  print(str(inst))
-  print("before obj")
   errObj = ErrorMessage();
-  errObj.set_message(str(inst));
-  print(errObj.get_message());
+  #errObj.set_message(str(inst));
+  #print(errObj.get_message());
+  errObj.err_message = str(inst);
   emList = [];
   emList.append(errObj)
   my_pickled_mary = pickle.dumps(emList)

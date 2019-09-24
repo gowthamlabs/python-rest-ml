@@ -18,7 +18,6 @@ class MongoConnector:
    db.command("serverStatus")
    return db
   except Exception as e:
-   print(e)
    raise Exception("No connection could be made because the target machine actively refused it");
 
  def db_close():

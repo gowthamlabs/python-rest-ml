@@ -18,9 +18,11 @@ class ErrorMessage:
         self.message = "";
 
     ## getter method to get the properties using an object
-    def get_message(self):
+    @property
+    def err_message(self):
         return self.message
 
     ## setter method to change the value 'a' using an object
-    def set_message(self, message):
+    @err_message.setter
+    def err_message(self, message):
         self.message = message
