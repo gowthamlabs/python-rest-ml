@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 
@@ -11,13 +12,13 @@ class MongoConnector:
  def db_connect():
   # connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
   # client = MongoClient("localhost:27017") --> this also works
-  client = MongoClient(port=27017)
+  client = MongoClient(port=27017, serverSelectionTimeoutMS=10, connectTimeoutMS=20000)
   # Set the db object to point to the myapp database
   db = client.myapp
   try: 
    db.command("serverStatus")
    return db
-  except Exception as e:
+  except ServerSelectionTimeoutError as e:
    raise Exception("No connection could be made because the target machine actively refused it");
 
  def db_close():

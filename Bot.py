@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, Response
 from pymongo import MongoClient
-from app.util.MongoConnector import *
+from app.service.BotService import *
 from app.model.ErrorMessage import *
 import pickle
 app = Flask(__name__)
@@ -8,11 +8,12 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def test():
  try:
-  db = MongoConnector.db_connect();
-  productsCount = db.products.find().count();
-  print(str(productsCount));
-  MongoConnector.db_close();
-  return str(productsCount);
+  errObj = ErrorMessage();
+  errObj.err_message = BotService.get_productsCount();
+  emList = [];
+  emList.append(errObj)
+  my_pickled_mary = pickle.dumps(emList)
+  return Response(my_pickled_mary);
   
  except Exception as inst:
   errObj = ErrorMessage();
